@@ -75,30 +75,9 @@ io.on('connection', (socket) => {
   console.log(`New connection: ${socket.id}`);
 
   // Handle joining a room
-  socket.on('join', async ({ roomId }, callback) => {
-    try {
-      if (!rooms.has(roomId)) {
-        rooms.set(roomId, {
-          peers: new Map(),
-          router,
-        });
-      }
-
-      const room = rooms.get(roomId);
-      room.peers.set(socket.id, { socket });
-
-      // Send router capabilities to client
-      callback({
-        rtpCapabilities: router.rtpCapabilities,
-      });
-
-      console.log(`Peer ${socket.id} joined room ${roomId}`);
-    } catch (error) {
-      console.error('Join error:', error);
-      callback({ error: error.message });
-    }
+   socket.on('getRouterRtpCapabilities', (_, callback) => {
+    callback(router.rtpCapabilities);
   });
-
   // Handle WebRTC transport creation
   socket.on('createTransport', async ({ roomId, direction }, callback) => {
     try {

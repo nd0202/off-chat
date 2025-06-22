@@ -2,6 +2,7 @@ const express = require('express');
 const { createWorker } = require('mediasoup');
 const socketIo = require('socket.io');
 const path = require('path');
+const dotenv =require ('dotenv');
 
 dotenv.config({
   path: '.env',

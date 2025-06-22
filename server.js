@@ -3,7 +3,7 @@ const { createWorker } = require('mediasoup');
 const socketIo = require('socket.io');
 const path = require('path');
 const dotenv =require ('dotenv');
-const cors = require('cors');
+
 
 dotenv.config({
   path: '.env',

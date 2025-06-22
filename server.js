@@ -3,6 +3,7 @@ const { createWorker } = require('mediasoup');
 const socketIo = require('socket.io');
 const path = require('path');
 const dotenv =require ('dotenv');
+const cors = require('cors');
 
 
 dotenv.config({
@@ -17,10 +18,15 @@ const server = app.listen(PORT, () => {
   console.log(`SFU Server running on http://localhost:${PORT}`);
 });
 
+app.use(cors({
+  origin: "https://off-chat.netlify.app", // ✅ Make sure it's https, not http
+  methods: ['GET', 'POST']
+}));
+
 // WebSocket server
 const io = socketIo(server, {
   cors: {
-    origin: ["http://off-chat.netlify.app"], // Your client URL
+    origin: ["https://off-chat.netlify.app"], // Your client URL
     methods: ['GET', 'POST']
   }
 });
